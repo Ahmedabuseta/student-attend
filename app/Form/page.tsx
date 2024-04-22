@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { COMPILER_INDEXES } from "next/dist/shared/lib/constants";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -154,9 +155,10 @@ export default function InputForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-[600px] space-y-4 p-6 m-auto relative top-10 "
       >
-        {inputFields.map((inputField) => {
+        {inputFields.map(((inputField,COMPILER_INDEXES)) => {
           return (
             <FormField
+            key={index}
               control={form.control}
               name={
                 inputField.name as
