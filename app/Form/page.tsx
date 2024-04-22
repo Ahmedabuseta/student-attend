@@ -155,7 +155,7 @@ export default function InputForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-[600px] space-y-4 p-6 m-auto relative top-10 "
       >
-        {inputFields.map(((inputField,COMPILER_INDEXES)) => {
+        {inputFields.map((inputField,index) => {
           return (
             <FormField
             key={index}
