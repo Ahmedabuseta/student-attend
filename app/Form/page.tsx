@@ -70,12 +70,12 @@ export default function InputForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "sdddddd",
-      address: "sddvsdv",
-      phone: "01025654889",
-      nationalId: "1532695485691256",
-      garaduateYear: "2222",
-      goal: "zeeeeeooooooooooooooo",
+      username: "",
+      address: "",
+      phone: "",
+      nationalId: "",
+      garaduateYear: "",
+      goal: "",
     },
   });
 
@@ -94,14 +94,14 @@ export default function InputForm() {
       }else{
         await axios.post("/api/add-user", data);
         toast({
-          title: "tmam ya comnda",
+          title: "تم ادخال البيانات بنجاح",
         });
       }
       
     } catch (error) {
       console.log(error);
       toast({
-        title: "bayza ya comnda",
+        title: "حدث خطأ ما , حاول مره اخري",
         variant: "destructive",
       });
     }
