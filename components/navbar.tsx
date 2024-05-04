@@ -14,9 +14,10 @@ const Navbar = () => {
             <AvatarFallback>Ahmd ALi</AvatarFallback>
           </Avatar>
         </div>
-        <p className=" font-bold italic py-2 text-2xl">
-          Mr.Ahmed ALi
-        </p>
+        <Link href={'./home'}><p className="text-2xl text-white italic font-semibold">
+            Mr.Ahmed Ali
+          </p>
+          </Link>
       </div>
       <Link href={'https://www.facebook.com/profile.php?id=100030506240012'}  target='_blank'>
             <FacebookIcon className="text-white border border-white rounded-full p-1 hover:bg-white hover:text-black" />

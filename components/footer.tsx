@@ -8,10 +8,11 @@ const Footer = ({}: iProps) => {
     <div>
       <footer className="bg-gray-800 ">
         <div className="flex justify-between items-center px-4 py-3">
-          <p className="text-2xl text-white italic font-semibold">
-            {" "}
-            Mr.Ahmed Ali{" "}
+          <Link href={'./home'}><p className="text-2xl text-white italic font-semibold">
+            Mr.Ahmed Ali
           </p>
+          </Link>
+          
           <Link
             href={"https://www.facebook.com/profile.php?id=100030506240012"}
             target="_blank"
