@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,11 +12,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import axios from "axios";
+import { COMPILER_INDEXES } from "next/dist/shared/lib/constants";
+
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { COMPILER_INDEXES } from "next/dist/shared/lib/constants";
+
+import { inputFields, governorates } from "./data/data";
+import { useState } from "react";
+import Loading from "@/components/loading";
+
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -39,11 +52,11 @@ const FormSchema = z.object({
     }),
   nationalId: z
     .string()
-    .min(16, {
-      message: "nationalId must be  16 number.",
+    .min(14, {
+      message: "nationalId must be  14 number.",
     })
-    .max(16, {
-      message: "nationalId must be  16 number.",
+    .max(14, {
+      message: "nationalId must be  14 number.",
     })
     .regex(/^[0-9]*$/, {
       message: "Only numbers are allowed in phone.",
@@ -64,21 +77,24 @@ const FormSchema = z.object({
     .max(300, {
       message: "goal must be at most 300 characters.",
     }),
+  governate: z.string(),
 });
 
 export default function InputForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
-      address: "",
-      phone: "",
-      nationalId: "",
-      garaduateYear: "",
-      goal: "",
+      username: "asass",
+      address: "asssssss",
+      phone: "01032561556",
+      nationalId: "30210071622549",
+      garaduateYear: "2033",
+      goal: "3awz ab7a brnis",
+      governate: "الغربيه",
     },
   });
 
+  const [loading,setLoading] = useState<Boolean>(false);
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const { phone, nationalId } = data;
 
@@ -86,79 +102,43 @@ export default function InputForm() {
     const nationalIdKey = nationalId.slice(0, 2);
 
     try {
-      if (nationalIdKey !== "20" || phoneKey !== "01" ){
+      setLoading(true)
+      if (nationalIdKey !== "30" || phoneKey !== "01") {
         toast({
           title: "الرقم القومي او الهاتف غير صحيح",
           variant: "destructive",
         });
-      }else{
+      } else {
         await axios.post("/api/add-user", data);
         toast({
           title: "تم ادخال البيانات بنجاح",
         });
       }
-      
     } catch (error) {
       console.log(error);
       toast({
         title: "حدث خطأ ما , حاول مره اخري",
         variant: "destructive",
       });
+    }finally{
+      setLoading(false)
     }
   }
-  interface iFields {
-    label: string;
-    name:
-      | "username"
-      | "address"
-      | "phone"
-      | "nationalId"
-      | "garaduateYear"
-      | "goal";
-    type: string;
-  }
-  const inputFields: iFields[] = [
-    {
-      label: "الاسم",
-      name: "username",
-      type: "text",
-    },
-    {
-      label: "العنوان",
-      name: "address",
-      type: "text",
-    },
-    {
-      label: "رقم الهاتف",
-      name: "phone",
-      type: "number",
-    },
-    {
-      label: "الرقم القومي",
-      name: "nationalId",
-      type: "number",
-    },
-    {
-      label: "خريج سنه",
-      name: "garaduateYear",
-      type: "number",
-    },
-    {
-      label: "هدفك",
-      name: "goal",
-      type: "text",
-    },
-  ];
+
   return (
+    <div className="pt-8 relative">
+
+   
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-[600px] space-y-4 p-6 m-auto relative top-10 "
       >
-        {inputFields.map((inputField,index) => {
+        {loading && <Loading />}
+        {inputFields.map((inputField, index) => {
           return (
             <FormField
-            key={index}
+              key={index}
               control={form.control}
               name={
                 inputField.name as
@@ -188,10 +168,36 @@ export default function InputForm() {
           );
         })}
 
-        <Button type="submit" className="w-1/2 block m-auto">
+        <FormField
+          control={form.control}
+          name="governate"
+          render={({ field }) => (
+            <FormItem className=" text-right">
+              <FormLabel className="font-bold">المحافظه</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue  className=" text-right" placeholder="اختر المحافظه ال انت منها" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {governorates.map((governorate) => (
+                    <SelectItem key={governorate.code} value={governorate.name}>
+                      {governorate.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button disabled={loading as boolean} type="submit" className= { `w-1/2 block m-auto ${loading && ' cursor-not-allowed' } `}>
           Submit
         </Button>
       </form>
-    </Form>
+    </Form>)
+    </div>
   );
 }

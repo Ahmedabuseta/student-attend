@@ -15,12 +15,13 @@ datasource db {
 
 model User {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  username      String  
+  username      String
   address       String
-  phone         String @unique 
-  nationalId    String  @unique 
+  phone         String  @unique
+  nationalId    String  @unique
   goal          String?
   garaduateYear String
+  governate     String
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt

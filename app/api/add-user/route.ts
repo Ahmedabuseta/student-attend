@@ -10,14 +10,15 @@ export  async function POST(req: Request) {
     nationalId,
     garaduateYear,
     goal,
+    governate
   } = await req.json();
   const phoneKey = phone.slice(0, 2);
   const nationalIdKey = nationalId.slice(0, 2);
   try {
 
-    if(nationalIdKey !== '20') return new NextResponse('Invalid National Id Key', { status: 400 })
+    if(nationalIdKey !== '30') return new NextResponse('Invalid National Id Key', { status: 400 })
     if(phoneKey !== '01') return new NextResponse('Invalid Phone Key' , { status: 400 });
-    if(nationalId.length !== 16 || phone.length !== 11 || garaduateYear.length !== 4)
+    if(nationalId.length !== 14 || phone.length !== 11 || garaduateYear.length !== 4)
        return new NextResponse('Invalid Data', { status: 400 });
     if(!phone.match(/^[0-9]*$/) || !nationalId.match(/^[0-9]*$/) || !garaduateYear.match(/^[0-9]*$/))
       return new NextResponse('Number format is incorrect', { status: 400 });
@@ -46,6 +47,7 @@ export  async function POST(req: Request) {
         nationalId,
         garaduateYear,
         goal,
+        governate
       },
     });
     return NextResponse.json(JSON.stringify(user), { status: 201});
