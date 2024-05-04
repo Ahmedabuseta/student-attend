@@ -177,7 +177,7 @@ export default function InputForm() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue  className=" text-right" placeholder="اختر المحافظه ال انت منها" />
+                    <SelectValue  className=" text-right" placeholder=" محافظة ايه" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
