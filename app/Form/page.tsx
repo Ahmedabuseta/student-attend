@@ -84,13 +84,13 @@ export default function InputForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "asass",
-      address: "asssssss",
-      phone: "01032561556",
-      nationalId: "30210071622549",
-      garaduateYear: "2033",
-      goal: "3awz ab7a brnis",
-      governate: "الغربيه",
+      username: "",
+      address: "",
+      phone: "",
+      nationalId: "",
+      garaduateYear: "",
+      goal: "",
+      governate: "",
     },
   });
 
@@ -182,7 +182,7 @@ export default function InputForm() {
                 </FormControl>
                 <SelectContent>
                   {governorates.map((governorate) => (
-                    <SelectItem key={governorate.code} value={governorate.name}>
+                    <SelectItem key={governorate.code} defaultChecked value={governorate.name}>
                       {governorate.name}
                     </SelectItem>
                   ))}
