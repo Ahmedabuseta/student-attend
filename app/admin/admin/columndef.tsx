@@ -45,6 +45,10 @@ export const columns: ColumnDef<User>[] = [
     header: "phone",
   },
   {
+    accessorKey: 'governate',
+    header: 'governate'
+  },
+  {
     accessorKey: "nationalId",
     header: ({ column }) => {
       return (
