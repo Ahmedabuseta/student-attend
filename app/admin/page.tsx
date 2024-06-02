@@ -10,7 +10,7 @@ export default function DemoPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/api/get-users');
+        const { data } = await axios.get('/api/add-user');
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data:", error);
