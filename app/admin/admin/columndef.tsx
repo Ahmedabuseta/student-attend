@@ -76,7 +76,6 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
  
       return (
         <DropdownMenu>
