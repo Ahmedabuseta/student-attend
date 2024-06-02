@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 
 async function getData(): Promise<User[]> {
   // Fetch data from your API here.
+  "use server"
   const users = await db.user.findMany();
   return users
 }
