@@ -2,8 +2,6 @@
 
 import { User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-
- 
 import { Button } from "@/components/ui/button"
 
 import {
@@ -14,16 +12,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+
 import { ArrowUpDown, MoreHorizontal, Trash } from "lucide-react"
 
 import axios from "axios"
-import { useRouter } from "next/navigation"
+import { useRouter  } from "next/navigation"
 
 const deleteUser = async (nationalId:String) => {
+  const router =useRouter()
   await axios.delete(`/api/delete-user/${nationalId}`)
-  window.location.reload()
+  router.refresh()
 }
 export const columns: ColumnDef<User>[] = [
   {

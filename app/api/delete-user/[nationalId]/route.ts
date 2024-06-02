@@ -8,7 +8,6 @@ export async function DELETE(req:Request,{params}:{params:{nationalId:string}}) 
     where: {
       nationalId,
     },
-    
   });
   return NextResponse.json(user, { status: 201, headers: { 'Content-Type': 'application/json' } });
 }

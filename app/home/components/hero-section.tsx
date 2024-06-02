@@ -2,7 +2,7 @@
 import ahmedAli from "@/public/ahmedali.jpeg";
 import Image from "next/image";
 import TextGenerateEffectDemo from "./text-generate-effect";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
   const router = useRouter()
